@@ -5,9 +5,11 @@ import App from './App'
 import router from './router'
 import axios from "axios"
 import Axios from 'axios'
+import Vuex from 'vuex'
+import store from './store/store.js'
 import 'element-ui/lib/theme-chalk/index.css';
 
-
+Vue.use(Vuex)
 Vue.prototype.$axios=Axios
 Vue.config.productionTip = false
 
@@ -178,6 +180,7 @@ Vue.prototype.$message = Message;
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>',
   render: h => h(App)

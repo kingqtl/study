@@ -16,6 +16,9 @@
       prop="name"
       label="歌曲名"
       width="auto">
+      <template slot-scope="scope">
+        <a @click="pl(scope.row.id)" target="players"> {{scope.row.name}} </a>
+      </template>
     </el-table-column>
  <el-table-column
       prop="artists[0].name"
@@ -32,6 +35,16 @@ export default {
 props:{
     musiclist:Array,
 },
+methods:{
+  pl(id)
+  {
+    //this.$router.push({path:'player',query:{songid:id}})
+    this.$store.dispatch('SetMusicID',id.toString());
+    //console.log(this.$store.state.musicid);
+    //alert(id);
+    
+  }
+}
 }
 </script>
 

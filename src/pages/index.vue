@@ -7,15 +7,15 @@
     <el-row type="flex" class="row-bg" justify="center">
   <el-col :span="10">  <el-menu  mode="horizontal" @select="handleSelect" class="el-menu-demo">
   <router-link to="/search"  active-class="bgd" tag="el-menu-item" index="1">音乐搜索</router-link>
-  <router-link to="/search"  active-class="bgd" tag="el-menu-item" index="2">音乐搜索</router-link>
-    <router-link to="/search"  active-class="bgd" tag="el-menu-item" index="3">音乐搜索</router-link>
-      <router-link to="/search"  active-class="bgd" tag="el-menu-item" index="4">音乐搜索</router-link>
+  <router-link to="/hotmusic"  active-class="bgd" tag="el-menu-item" index="2">热歌推荐</router-link>
+    <router-link to="/"  active-class="bgd" tag="el-menu-item" index="3">音乐搜索</router-link>
+      <router-link to="/"  active-class="bgd" tag="el-menu-item" index="4">音乐搜索</router-link>
 
 </el-menu>
 
 </el-col>
   
-  <el-col :span="6"><el-input placeholder="请输入内容" v-model="musicname" class="input-with-select">
+  <el-col :span="6"><el-input placeholder="请输入内容" v-model="musicname"  @keyup.13.native='search' class="input-with-select">
    
     <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
   </el-input></el-col>
@@ -23,24 +23,46 @@
   </el-header>
   <el-main>
     
-    
+    <keep-alive>
     <router-view :key="key"></router-view>
-    
+    </keep-alive>
     
    </el-main>
-  <el-footer>Footer</el-footer>
+
+   
+  <el-footer>
+    <player :musicid='musicid'></player>
+  </el-footer>
 </el-container>
 </template>
 
 <script>
+import player from '../components/musicplayer'
 export default {
   name: 'index',
   data () {
     return {
       musicname:'',
+       //musicid:'',
+    }
+  },
+
+
+
+  components:{
+    player,
+  },
+
+  watch:{
+    musicid(){
+      //alert('ddd');
     }
   },
   computed:{
+    musicid(){
+      return this.$store.state.musicid
+    },
+   
     key(){
       return this.$route.name?this.$route.name + +new Date():this.$route + + new Date();
     }
