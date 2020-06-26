@@ -17,7 +17,7 @@
   
   <el-col :span="6"><el-input placeholder="请输入内容" v-model="musicname"  @keyup.13.native='search' class="input-with-select">
    
-    <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
+    <el-button icon="el-icon-search" @click="search"></el-button>
   </el-input></el-col>
 </el-row>
   </el-header>
@@ -31,7 +31,18 @@
 
    
   <el-footer>
-    <player :musicid='musicid'></player>
+
+
+   
+ 
+ 
+  
+  
+     
+      <player :musicid='musicid'  v-on:onendeds='nextd'></player>
+
+  
+   
   </el-footer>
 </el-container>
 </template>
@@ -44,6 +55,8 @@ export default {
     return {
       musicname:'',
        //musicid:'',
+      idindex:0,
+      
     }
   },
 
@@ -54,13 +67,12 @@ export default {
   },
 
   watch:{
-    musicid(){
-      //alert('ddd');
-    }
+    
   },
   computed:{
     musicid(){
-      return this.$store.state.musicid
+      
+      return this.$store.state.musicid[0]
     },
    
     key(){
@@ -68,6 +80,23 @@ export default {
     }
   },
   methods:{
+    whys(){
+      alert('播放完了')
+    },
+    nextd(){
+
+       const gdlistlenght=this.$store.state.musicid.length
+       if(this.idindex<gdlistlenght){
+         this.idindex+=1;
+       }else{
+         this.idindex=0
+       
+       //console.log(this.idindex);
+       }
+       
+    },
+  
+
     search(){
       this.$router.push({path:'/search',query:{musicname:this.musicname}})
     }

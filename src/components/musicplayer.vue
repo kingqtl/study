@@ -1,6 +1,8 @@
 <template>
-  <div>
-      <audio :src="musicurl" autoplay="autoplay" controls="controls" class="play"></audio>
+  <div style="font-size:30px;color:white">
+        <i class="el-icon-caret-left"></i>
+<i class="el-icon-video-play" @click="pased" ></i>
+<i class="el-icon-caret-right" @click="onendeds"></i> <audio :src="musicurl" id="isau"  autoplay="autoplay" @ended="onendeds" controls="controls" class="play"></audio>
         </div>
 </template>
 
@@ -9,6 +11,7 @@ export default {
     data(){
         return{
             musicurl:'',
+            ispase:false,
         }
     },
 
@@ -19,11 +22,19 @@ musicid(){
     },
 
  props:{
-     musicid:String,    
+     musicid:String,   
+    
  },
 
  methods:{
 
+     pased(){
+         const aud=document.getElementById('isau');
+          aud.pause();
+     },
+     onendeds(){
+         this.$emit('onendeds');
+     },
      getmusicurl(){
 
           this.$axios.get("https://autumnfish.cn//song/url?id="+this.musicid)
@@ -47,5 +58,5 @@ musicid(){
 </script>
 
 <style>
-.play{width:800px;height:30px;}
+.play{width:500px;height:30px;}
 </style>

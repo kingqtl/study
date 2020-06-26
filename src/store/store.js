@@ -4,11 +4,11 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 const store=new Vuex.Store({
     state:{
-        musicid:'',
+        musicid:[],
     },
     mutations:{
         setmusicid(state,payload){
-            this.state.musicid=payload
+            this.state.musicid.unshift(payload)
         }
     },
     actions:{

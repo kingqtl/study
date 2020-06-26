@@ -40,6 +40,9 @@ methods:{
   {
     //this.$router.push({path:'player',query:{songid:id}})
     this.$store.dispatch('SetMusicID',id.toString());
+
+    this.$message('已添加到播放列表！');
+
     //console.log(this.$store.state.musicid);
     //alert(id);
     
